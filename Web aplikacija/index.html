@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+ 
+  
+  <title>Web aplikacija</title>
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  
+  <link href="css/modern-business.css" rel="stylesheet">
+  
+  <style>
+  h1 {text-align: center; color:blue}
+  h2 {text-align: center; color:blue}
+  table, td, th {
+  border: 1px solid black;
+}
+background-color="gray"
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  height: 150px;
+}
+td {
+  height: 150px;
+}
+  </style>
+</head>
+
+<body style="background-color:powderblue;">
+
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+  	//style="width:80px;height:80px;"
+    <div class="container">
+      <a class="navbar-brand" href="index.html"></a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Prijava.html">Prijava</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="registracija.html">Registracija</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <canvas id="canvas" width="400" height="400"
+style="background-color:#333">
+</canvas>
+
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var radius = canvas.height / 2;
+ctx.translate(radius, radius);
+radius = radius * 0.90
+setInterval(drawClock, 1000);
+
+function drawClock() {
+  drawFace(ctx, radius);
+  drawNumbers(ctx, radius);
+  drawTime(ctx, radius);
+}
+
+function drawFace(ctx, radius) {
+  var grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, 2*Math.PI);
+  ctx.fillStyle = 'white';
+  ctx.fill();
+  grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+  grad.addColorStop(0, '#333');
+  grad.addColorStop(0.5, 'white');
+  grad.addColorStop(1, '#333');
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = radius*0.1;
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+  ctx.fillStyle = '#333';
+  ctx.fill();
+}
+
+function drawNumbers(ctx, radius) {
+  var ang;
+  var num;
+  ctx.font = radius*0.15 + "px arial";
+  ctx.textBaseline="middle";
+  ctx.textAlign="center";
+  for(num = 1; num < 13; num++){
+    ang = num * Math.PI / 6;
+    ctx.rotate(ang);
+    ctx.translate(0, -radius*0.85);
+    ctx.rotate(-ang);
+    ctx.fillText(num.toString(), 0, 0);
+    ctx.rotate(ang);
+    ctx.translate(0, radius*0.85);
+    ctx.rotate(-ang);
+  }
+}
+
+function drawTime(ctx, radius){
+    var now = new Date();
+    var hour = now.getHours();
+    var minute = now.getMinutes();
+    var second = now.getSeconds();
+    //hour
+    hour=hour%12;
+    hour=(hour*Math.PI/6)+
+    (minute*Math.PI/(6*60))+
+    (second*Math.PI/(360*60));
+    drawHand(ctx, hour, radius*0.5, radius*0.07);
+    //minute
+    minute=(minute*Math.PI/30)+(second*Math.PI/(30*60));
+    drawHand(ctx, minute, radius*0.8, radius*0.07);
+    // second
+    second=(second*Math.PI/30);
+    drawHand(ctx, second, radius*0.9, radius*0.02);
+}
+
+function drawHand(ctx, pos, length, width) {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.moveTo(0,0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
+}
+</script>
+
+  <header>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <!-- Prvi slajd -->
+        <div class="carousel-item active" style="background-image: url('img/landscape1.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Budite onaj koji ohrabruje, iako je ovaj svijet prepun kritičara</h3>
+            <p>Dave Wells</p>
+          </div>
+        </div>
+        <!-- Drugi slajd -->
+        <div class="carousel-item" style="background-image: url('img/blue.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Dobro došli</h3>
+            <p></p>
+          </div>
+        </div>
+        <!-- Treći slajd -->
+        <div class="carousel-item" style="background-image: url('img/landscape2.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Pobjeda čeka, pronađi je</h3>
+            <p>Mark Roberts</p>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only"></span>
+      </a>
+    </div>
+  </header>
+ <!--Linkovi i tablica-->
+
+ <h1>Google alati</h1>
+ <p></p>
+<table style="width:100%; hight:100%">
+  <tr>
+    <th><a href="https://www.google.com/?gws_rd=ssl">
+  <img src="blue" alt="Google" style="background-image: url('img/google1.jpg')"><!--Slika radi-->
+      </a></th>
+    <th><a href="https://www.youtube.com/">
+  <img src="ytb.jpg" alt="You Tube" style="background-image: url('img/ytb.jpg')"><!--Slika radi-->
+      </a></th>
+    <th><a href="https://www.gmail.com/">
+  <img src="google1.jpg" alt="Email" style="background-image: url('img/mail.jpg')"><!--Slika radi-->
+      </a></th>
+  </tr>
+  <tr>
+    <td><a href="https://docs.google.com/presentation/u/0/">
+  <img src="google1.jpg" alt="Google Prezentacije" style="background-image: url('img/point.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="https://docs.google.com/document/u/0/">
+  <img src="google1.jpg" alt="Google Dokumenti" style="background-image: url('img/docs.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="https://docs.google.com/spreadsheets/u/0/"> 
+  <img src="excell.jpg" alt="Google Tablice" style="background-image: url('img/excell.jpg')"><!--Slika radi-->
+      </a></td>
+  </tr>
+  <tr>
+    <td><a href="https://docs.google.com/forms/u/0/"> 
+  <img src="google1.jpg" alt="Google Obrasci" style="background-image: url('img/form.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="https://calendar.google.com/calendar/u/0/r?pli=1"> 
+  <img src="google1.jpg" alt="Kalendar" style="background-image: url('img/calendar.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="https://www.google.com/maps/@45.2289818,13.9386226,14z"> 
+  <img src="google1.jpg" alt="Google Karte" style="background-image: url('img/gmaps.jpg')"><!--Slika radi-->
+      </a></td>
+  </tr>
+</table>
+<h2>SmartHome alati</h2>
+<table style="width:100%">
+  <tr>
+    <th><a href="BMI.html">
+  <img src="blue" alt="BMI kalkulator" style="background-image: url('img/google1.jpg')"><!--Slika radi-->
+      </a></th>
+    <th><a href="Calkulator.html">
+  <img src="ytb.jpg" alt="Kalkulator" style="background-image: url('img/ytb.jpg')"><!--Slika radi-->
+      </a></th>
+    <th><a href="Klima.html">
+  <img src="google1.jpg" alt="Klima" style="background-image: url('img/mail.jpg')"><!--Slika radi-->
+      </a></th>
+  </tr>
+  <tr>
+    <td><a href="Rolete.html">
+  <img src="google1.jpg" alt="Roletne" style="background-image: url('img/point.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="Garaza.html">
+  <img src="google1.jpg" alt="Garaža" style="background-image: url('img/docs.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="Alarm.html"> 
+  <img src="excell.jpg" alt="Alarm" style="background-image: url('img/excell.jpg')"><!--Slika radi-->
+      </a></td>
+  </tr>
+  <tr>
+    <td><a href="portfolio.html"> 
+  <img src="google1.jpg" alt="Portfolio" style="background-image: url('img/form.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="Siječanj.html"> 
+  <img src="google1.jpg" alt="Kalendar" style="background-image: url('img/calendar.jpg')"><!--Slika radi-->
+      </a></td>
+    <td><a href="vrijeme.html"> 
+  <img src="google1.jpg" alt="Prognoza vremena" style="background-image: url('img/gmaps.jpg')"><!--Slika radi-->
+      </a></td>
+  </tr>
+</table>
+
+
+
+   
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Marko Galavić</p>
+    </div>
+   
+  </footer>
+
+  
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+</body>
+
+</html>

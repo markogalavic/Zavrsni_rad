@@ -1,0 +1,66 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  background: #555;
+}
+
+.content {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 10px;
+}
+</style>
+    <title>BMI Kalkulator</title>
+    <script type="text/javascript">
+        function computeBMI()
+        {
+            
+            var height=Number(document.getElementById("height").value);
+            var heightunits=document.getElementById("heightunits").value;
+            var weight=Number(document.getElementById("weight").value);
+            var weightunits=document.getElementById("weightunits").value;
+
+
+            
+            if (heightunits=="inches") height/=39.3700787;
+            if (weightunits=="lb") weight/=2.20462;
+
+            
+            var BMI=weight/Math.pow(height,2);
+
+            
+            document.getElementById("output").innerText=Math.round(BMI*100)/100;
+
+            if (output<18.5)
+            document.getElementById("comment").value = "Underweight";
+            if (output>=18.5 && output<=25)
+            document.getElementById("comment").value = "Normal";
+            if (output>=25 && output<=30)
+            document.getElementById("comment").value = "Obese";
+            if (output>30)
+            document.getElementById("comment").value = "Overweight";
+            document.getElementById("answer").value = output; 
+        }
+    </script>
+</head>
+<body style: center>
+    <h1>Body Mass Index Kalkulator</h1>
+    <p>Unesi svoju visinu: <input type="text" id="height"/>
+        <select type="multiple" id="heightunits">
+            <option value="metres" selected="selected">metara</option>
+            <option value="inches">inča</option>
+        </select>
+    </p>
+    <p>Unesi svoju težinu: <input type="text" id="weight"/>
+        <select type="multiple" id="weightunits">
+            <option value="kg" selected="selected">kilograma</option>
+            <option value="lb">pounds</option>
+        </select>
+    </p>
+    <input type="submit" value="Izračunaj BMI" onclick="computeBMI();">
+    <h1>Vaš BMI je: <span id="output">?</span></h1>
+
+    
+</body>
